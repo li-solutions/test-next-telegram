@@ -23,6 +23,17 @@ const [userName, setUserName] = useState<string | null>(null);
     if(user) {
       setUserName(user)
     }
+    const handleStorageChange = (event: StorageEvent) => {
+      if (event.key === 'username') {
+        setUserName(event.newValue);
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
   }, []);
 
   return (
