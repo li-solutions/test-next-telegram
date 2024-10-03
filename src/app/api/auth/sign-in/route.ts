@@ -4,9 +4,10 @@ import jwt from 'jsonwebtoken';
 import {HARDCODED_USER} from "@/lib/constants";
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your-very-strong-secret';
-
+const delay = (ms:number) => new Promise((resolve) => setTimeout(resolve, ms));
 export async function POST(req: NextRequest) {
   const {email, password} = await req.json()
+  await delay(2000);
   if (!email || !password) {
     return NextResponse.json({message: 'Password and email are required'}, {status: 400});
   }

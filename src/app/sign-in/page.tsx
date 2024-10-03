@@ -2,11 +2,15 @@
 import AuthForm from "@/components/AuthForm/AuthForm";
 import {useState} from "react";
 import {dashboardRoute, loginRoute} from "@/lib/appRoutes";
+import SplashScreen from "@/components/SplashScreen/SplashScreen";
 
 export default function SignInPage() {
   const [authError, setAuthError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false
+  );
 
   async function handleSignInSubmit(e: React.FormEvent<HTMLFormElement>) {
+    setLoading(true)
     e.preventDefault();
     setAuthError(null);
     if (!e.currentTarget) return;
@@ -26,10 +30,13 @@ export default function SignInPage() {
       window.location.href = dashboardRoute()
     } else {
       setAuthError(data.message)
+      setLoading(false)
     }
+
   }
 
-  return (
-  <AuthForm authError={authError} onSubmit={handleSignInSubmit}/>
+  return (<>
+    {loading ? (<SplashScreen/>) : (<AuthForm authError={authError} onSubmit={handleSignInSubmit}/>)}
+  </>
   )
 }

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "@/components/Navbar/Navbar";
+import {Suspense} from "react";
+import SplashScreen from "@/components/SplashScreen/SplashScreen";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -30,9 +32,11 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased p-4 bg-white`}
       >
       <Navbar/>
+      <Suspense fallback={<SplashScreen/>}>
       <main>
         {children}
       </main>
+      </Suspense>
       </body>
     </html>
   );

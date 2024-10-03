@@ -1,0 +1,8 @@
+{
+	admin off
+}
+
+https://test-next-telegram.vercel.app {
+	tls internal
+	reverse_proxy http://localhost:3000
+}
